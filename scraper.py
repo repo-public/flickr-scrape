@@ -13,7 +13,7 @@ with open('credentials.json') as infile:
 
 KEY = creds['KEY']
 SECRET = creds['SECRET']
-    
+
 def download_file(url, local_filename):
     if local_filename is None:
         local_filename = url.split('/')[-1]
@@ -30,14 +30,14 @@ def get_photos(q, page=1, bbox=None):
         'content_type': '7',
         'per_page': '500',
         'media': 'photos',
+        'license': '9,10',  # see README.md
         'method': 'flickr.photos.search',
         'format': 'json',
-        'license': '9,10',  # see README.md
         'advanced': 1,
         'nojsoncallback': 1,
         'extras': 'media,realname,url_l,o_dims,geo,tags,machine_tags,date_taken',#url_c,url_l,url_m,url_n,url_q,url_s,url_sq,url_t,url_z',
         'page': page,
-        'text': q,  
+        'text': q,
         'api_key': KEY,
     }
 
@@ -96,7 +96,7 @@ def search(q, bbox=None, max_pages=None):
             localname = os.path.join(foldername, '{}.{}'.format(photo['id'], extension))
             if not os.path.exists(localname):
                 download_file(url, localname)
-        except:
+        except Exception as e:
             continue
 
 
@@ -112,7 +112,7 @@ if __name__ == '__main__':
 
     try:
         bbox = args.bbox.split(',')
-    except:
+    except Exception as e:
         bbox = None
 
     if bbox and len(bbox) != 4:
