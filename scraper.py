@@ -30,7 +30,7 @@ def get_photos(q, page=1, bbox=None):
         'content_type': '7',
         'per_page': '500',
         'media': 'photos',
-        'license': '9,10',  # see README.md
+       # 'license': '9,10',  # see README.md
         'method': 'flickr.photos.search',
         'format': 'json',
         'advanced': 1,
